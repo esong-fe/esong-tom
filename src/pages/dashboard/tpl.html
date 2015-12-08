@@ -1,0 +1,14 @@
+<div>
+  <tabs>
+    <tab v-for="tab in tabs" :header="tab.name">
+      <table>
+        <tr>
+          <th v-for="field in tab.fields" v-text="field.title"></th>
+        </tr>
+        <tr v-for="item in tab.items">
+          <td v-for="field in tab.fields" v-text="item[field.data]"></td>
+        </tr>
+      </table>
+    </tab>
+  </tabs>
+</div>

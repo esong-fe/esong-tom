@@ -20,8 +20,12 @@ module.exports = {
         }
       } ,
       {
+        test : /\.vue$/ ,
+        loader : 'vue'
+      } ,
+      {
         test : /\.html$/ ,
-        loader : 'html'
+        loader : 'vue-html' // webpack 会自动加上 -loader 的后缀变成模块 id：vue-html-loader，并 require()
       } ,
       {
         test : /\.scss$/ ,
