@@ -17,6 +17,7 @@ import panel from 'vue-strap/src/Panel.vue';
 import login from './pages/login/index'; // 登录页
 import frame from './pages/frame/index'; // 整体框架
 import dashboard from './pages/dashboard/index'; // Dashboard
+import inbound from './pages/inbound/index'; // 入库页面
 
 Vue.config.debug = true;
 
@@ -48,9 +49,13 @@ router.map( {
   '/frame' : {
     component : frame ,
     subRoutes : {
-      '/' : {
+      '/dashboard' : {
         name : 'dashboard' ,
         component : dashboard
+      } ,
+      '/inbound' : {
+        name : 'inbound' ,
+        component : inbound
       }
     }
   } ,
