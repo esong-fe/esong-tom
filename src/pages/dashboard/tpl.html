@@ -9,7 +9,7 @@
         </thead>
         <tbody>
           <tr v-for="item in tab.items">
-            <td v-for="field in tab.fields" v-text="item[field.data]"></td>
+            <td v-for="field in tab.fields" v-html="getTdHtml(field,item)"></td>
           </tr>
         </tbody>
       </table>

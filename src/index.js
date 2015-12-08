@@ -16,8 +16,7 @@ import panel from 'vue-strap/src/Panel.vue';
 // 加载页面组件
 import login from './pages/login/index'; // 登录页
 import frame from './pages/frame/index'; // 整体框架
-import home from './pages/home/index'; // 首页
-import dashboard from './pages/dashboard/index'; // dashboard
+import dashboard from './pages/dashboard/index'; // Dashboard
 
 Vue.config.debug = true;
 
