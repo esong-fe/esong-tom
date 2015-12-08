@@ -1,0 +1,93 @@
+@charset "utf-8";
+
+$header-height: 30px;
+$nav-width: 200px;
+
+%fixed-panel {
+  position: fixed;
+  z-index: 0;
+}
+
+#frame-header {
+  @extend %fixed-panel;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $header-height;
+}
+
+#frame-nav {
+  @extend %fixed-panel;
+  width: $nav-width;
+  left: 0;
+  top: $header-height;
+  bottom: 0;
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  .panel {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .panel-heading, .panel-body {
+    padding: 0;
+  }
+
+  .panel-body {
+    border: none;
+
+    a {
+      color: #a2acb3;
+      padding: 5px 0 5px 30px;
+      font-size: 16px;
+
+      &:hover {
+        color: #5fbeaa;
+      }
+    }
+  }
+
+  &, & .panel, & .panel-heading {
+    background-color: #36404a;
+  }
+
+  & .panel {
+    border: none;
+    border-radius: 0;
+  }
+
+  $a-padding-left: 20px;
+  a {
+    color: #fff;
+    display: block;
+    text-decoration: none;
+  }
+
+  // 顶级链接
+  > a, .panel-title a {
+    transition: background 0.2s;
+    padding: 12px $a-padding-left;
+    margin: 5px 0;
+
+    &:hover, &.v-link-active {
+      background-color: rgba(244, 248, 251, 0.247059);
+    }
+
+    &.v-link-active {
+      $hover-border: 3px;
+      padding-left: $a-padding-left - $hover-border;
+      border-left: $hover-border solid rgb(95, 190, 170);
+    }
+  }
+}
+
+#frame-content {
+  @extend %fixed-panel;
+  left: $nav-width;
+  top: $header-height;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
+  padding: 15px;
+}

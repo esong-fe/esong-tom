@@ -10,6 +10,8 @@ import VueResource from 'vue-resource';
 // 全局组件
 import tab from 'vue-strap/src/Tab.vue';
 import tabset from 'vue-strap/src/Tabset.vue';
+import accordion from 'vue-strap/src/Accordion.vue';
+import panel from 'vue-strap/src/Panel.vue';
 
 // 加载页面组件
 import login from './pages/login/index'; // 登录页
@@ -22,6 +24,8 @@ Vue.config.debug = true;
 // 注册 vue-strap 的一些全局组件
 Vue.component( 'tab' , tab );
 Vue.component( 'tabs' , tabset );
+Vue.component( 'accordion' , accordion );
+Vue.component( 'panel' , panel );
 
 // 安装并设置 vue-resource
 Vue.use( VueResource );
@@ -42,14 +46,11 @@ Vue.use( VueRouter );
 const router = new VueRouter();
 
 router.map( {
-  '/' : {
+  '/frame' : {
     component : frame ,
     subRoutes : {
       '/' : {
-        name : 'home' ,
-        component : home
-      } ,
-      '/dashboard' : {
+        name : 'dashboard' ,
         component : dashboard
       }
     }
@@ -70,7 +71,7 @@ router.beforeEach( transition => {
 } );
 
 router.redirect( {
-  '*' : { name : 'home' }
+  '*' : { name : 'dashboard' }
 } );
 
 router.start( {
