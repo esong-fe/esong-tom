@@ -6,7 +6,10 @@ import VueResource from 'vue-resource';
 
 // 加载页面组件
 import login from './pages/login/index';
+import frame from './pages/frame/index';
 import home from './pages/home/index';
+
+Vue.config.debug = true;
 
 Vue.use( VueResource );
 
@@ -26,8 +29,13 @@ const router = new VueRouter();
 
 router.map( {
   '/' : {
-    name : 'home' ,
-    component : home
+    component : frame ,
+    subRoutes : {
+      '/' : {
+        name : 'home' ,
+        component : home
+      }
+    }
   } ,
   '/login' : {
     name : 'login' ,
