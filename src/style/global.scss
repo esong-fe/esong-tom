@@ -1,4 +1,9 @@
 @charset "utf-8";
 @import "bs";
+@import "common";
+
+$ico-moon-path:'icomoon/fonts/';
+@import "icomoon/style";
 
 @import "../pages/frame/frame";
+@import "../pages/inbound/index";
