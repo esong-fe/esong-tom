@@ -10,7 +10,9 @@ const resetData = {
     weight : '' , // 重量，重量应该转换为一个数字
     weightType : 'kg' , // 重量单位
     inboundLabel : '' , // 入库标签号。测试用：ORA000000002-D
-    id : -1 // 检查入库标签号后服务器传回来的 id
+    id : null , // 检查入库标签号后服务器传回来的 id
+    carrierNo : '' , // 入库标签号不存在时要扫描运单号
+    customerIdentifier : '' , // 客户识别码，扫描运单号后可获得
   } ,
 
   // alert 提示
@@ -19,12 +21,17 @@ const resetData = {
     show : false ,
     duration : 3000 ,
     type : 'info'
+  } ,
+
+  // 一些在最开始被隐藏了的输入框
+  show : {
+    waybill : false , // 运单号
+    userId : false // 客户识别码
   }
 };
 
 export default {
   http : {
-    root : '/inbound' ,
     headers : {
       'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
     }
@@ -81,7 +88,7 @@ export default {
      * 检查入库标签号
      */
     checkLabel() {
-      const {model} = this , {inboundLabel} = model;
+      const {model,$els} = this , {inboundLabel} = model;
       if ( !inboundLabel ) { return; }
       if ( !verify( inboundLabel ) ) {
         this.alert( '入库标签号的格式不正确。' );
@@ -89,9 +96,9 @@ export default {
         this.focus( 'label' );
         return;
       }
-      this.$els.label.disabled = true;
+      $els.label.disabled = true;
       this.$http
-        .post( 'checkInboundLabel' , `inboundLabel=${inboundLabel}` )
+        .post( '/inbound/checkInboundLabel' , `inboundLabel=${inboundLabel}` )
         .then( xhr => {
           const res = xhr.data , {id} = res;
           this.model.id = id;
@@ -101,12 +108,37 @@ export default {
               this.inbound();
               break;
             case -1 === id: // 入库标签不存在，需要输入运单号
-              //$( '#need-carry-num' ).show().find( 'input' ).prop( 'required' , true ).focus();
+              this.show.waybill = true;
+              this.$nextTick( ()=> {
+                $els.waybill.focus();
+              } );
               break;
             case -2 === id: // 入库标签号重复，直接重置状态
               this.alert( '入库标签号重复！' );
               this.reset();
               break;
+          }
+        } );
+    } ,
+
+    /**
+     * 检查运单号
+     */
+    checkWaybill() {
+      const {model,$els} = this , {carrierNo} = model;
+      if ( !carrierNo ) { return; }
+      // todo 这里有一段针对日本仓库的逻辑，用于提示格式不正确的运单号，暂时不做。
+      $els.waybill.disabled = true;
+      this.$http
+        .post( '/inbound/checkCarrierNo' , `carrierNo=${carrierNo}` )
+        .then( xhr => {
+          const res = xhr.data ,
+            {id,customerIdentifier} = res ,
+            isEcom = customerIdentifier.startsWith( 'YI' ); // 是否是电商
+          model.id = id;
+          model.customerIdentifier = customerIdentifier;
+          if ( id > 0 ) {
+            // todo 从这里继续
           }
         } );
     }

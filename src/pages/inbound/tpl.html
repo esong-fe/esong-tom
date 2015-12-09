@@ -25,6 +25,12 @@
       <div class="form-group">
         <input type="text" class="form-control" placeholder="扫描入库标签号" v-el:label v-model="model.inboundLabel | 2trim | 2uppercase" @change="checkLabel">
       </div>
+      <div class="form-group" v-show="show.waybill">
+        <input type="text" class="form-control" placeholder="入库标签号不存在，请扫描包裹运单号" v-el:waybill v-model="model.carrierNo | 2trim">
+      </div>
+      <div v-show="show.userId">
+        <input type="text" class="form-control" v-el:user-id v-model="model.customerIdentifier">
+      </div>
       <div class="form-group">
         <textarea rows="5" class="form-control" placeholder="备注" v-model="model.remark" v-el:remark></textarea>
       </div>
