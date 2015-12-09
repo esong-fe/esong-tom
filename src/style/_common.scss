@@ -1,5 +1,11 @@
 @charset "utf-8";
 
+// 默认 top 50 会在显示时将 alert 割裂开（估计跟 header 使用了 position 有关）
+.alert.top {
+  top: 70px !important;
+}
+
+// 操作区域
 .tom-operate-area {
   background-color: #fff;
   width: 400px;

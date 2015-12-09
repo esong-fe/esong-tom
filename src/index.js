@@ -12,12 +12,16 @@ import tab from 'vue-strap/src/Tab.vue';
 import tabset from 'vue-strap/src/Tabset.vue';
 import accordion from 'vue-strap/src/Accordion.vue';
 import panel from 'vue-strap/src/Panel.vue';
+import alert from 'vue-strap/src/Alert.vue';
 
 // 加载页面组件
 import login from './pages/login/index'; // 登录页
 import frame from './pages/frame/index'; // 整体框架
 import dashboard from './pages/dashboard/index'; // Dashboard
 import inbound from './pages/inbound/index'; // 入库页面
+
+// 全局过滤器
+import './filters/index';
 
 Vue.config.debug = true;
 
@@ -26,6 +30,7 @@ Vue.component( 'tab' , tab );
 Vue.component( 'tabs' , tabset );
 Vue.component( 'accordion' , accordion );
 Vue.component( 'panel' , panel );
+Vue.component( 'alert' , alert );
 
 // 安装并设置 vue-resource
 Vue.use( VueResource );
